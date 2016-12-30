@@ -6,7 +6,7 @@ this.addEventListener('install', function(event) {
       return cache.addAll([
         '/serviceworker/',
         '/serviceworker/index.html',
-        '/serviceworkerm/app.js'
+        '/serviceworker/app.js'
       ]);
     })
   );
