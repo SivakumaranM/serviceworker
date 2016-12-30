@@ -8,7 +8,7 @@ this.addEventListener('install', function(event) {
         '/serviceworker/index.html',
         '/serviceworkerm/app.js'
       ]);
-    })
+    });
   );
 });
 
@@ -23,4 +23,3 @@ this.addEventListener('fetch', function(event) {
     });
     return response.clone();
   });
-});
