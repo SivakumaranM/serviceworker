@@ -4,9 +4,9 @@ this.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
       return cache.addAll([
-        '/sivakumaranm/',
-        '/sivakumaranm/index.html',
-        '/sivakumaranm/app.js'
+        '/serviceworker/',
+        '/serviceworker/index.html',
+        '/serviceworkerm/app.js'
       ]);
     })
   );
