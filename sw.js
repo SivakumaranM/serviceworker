@@ -15,19 +15,36 @@ this.addEventListener('install', function(event) {
 
 this.addEventListener('fetch', function(event) {
   console.log('The service worker is serving the asset.');
-  var response;
   event.respondWith(fromCache(event.request).catch(function() {
     console.log('Asset is not available in cache. Fetching from network');
     return fetch(event.request);
-  }).then(function(r) {
-    response = r;
-    caches.open(CACHE).then(function(cache) {
-      cache.put(event.request, response);
-      console.log('Adding asset to cache');
-    });
-    return response.clone();
-  }));
+  });
+  event.waitUntil(
+    update(event.request).then(refresh);
+  );
 });
+
+function refresh(response) {
+  return self.clients.matchAll().then(function (clients) {
+    clients.forEach(function (client) {
+      var message = {
+        type: 'refresh',
+        url: response.url,
+      };
+      client.postMessage(JSON.stringify(message));
+    });
+  });
+}
+
+function update(request) {
+  return caches.open(CACHE).then(function (cache) {
+    return fetch(request).then(function (response) {
+      return cache.put(request, response.clone()).then(function () {
+        return response;
+      });
+    });
+  });
+}
 
 function fromCache(request) {
   return caches.open(CACHE).then(function (cache) {
