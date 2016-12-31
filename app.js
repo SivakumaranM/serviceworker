@@ -23,6 +23,7 @@ if ('serviceWorker' in navigator) {
     var isAsset = message.url.includes('asset');
     console.log('Reloading page');
     location.reload();
+  });
 }
 
 
