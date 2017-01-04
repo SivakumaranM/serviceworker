@@ -18,7 +18,7 @@ this.addEventListener('fetch', function(event) {
   event.respondWith(fromCache(event.request));
   
   event.waitUntil(
-    update(event.request).then(refresh);
+    update(event.request).then(refresh)
   );
 });
 
